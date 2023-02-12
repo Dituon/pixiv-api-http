@@ -13,7 +13,6 @@ export default async function pixivFetch(option) {
             host: u.host,
             path: u.pathname || '/' + u.search || ''
         }
-        console.log(option)
     }
     const connectOption = { ...defaultOption, ...option }
     return new Promise((res, rej) => {
