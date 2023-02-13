@@ -1,25 +1,10 @@
 import { pixivJsonFetch } from '../../../pixiv-fetch/index.js'
 
-/** @typedef {import('../search/search.js').Restrict} Restrict */
-
 /** 
- * @typedef {object} IllustDTO
- * 
- * @property {string} title
- * @property {number} total page count
- * @property {ImageDTO[]} images
- * @property {number} createTime create timestamp
- * @property {number} updateTime update timestamp
- * @property {string[]} tags
- * @property {Restrict} restrict
- * @property {string} comment
- * @property {number} bookmarks ❤ icon
- * @property {number} likes 😊 icon
- * @property {number} views 👁 icon
- */
-
-/**
- * @typedef { {name: string, id: number} } AuthorDTO
+ * @typedef {BaseItemInfoDTO & {
+ *     total: number,
+ *     images: ImageDTO[]
+ * }} IllustDTO
  */
 
 /** 
@@ -59,6 +44,7 @@ export async function getPidIllust(id) {
     }
     const authorDetails = details.author_details
     return {
+        id,
         title: details.title,
         total: pages,
         images,
@@ -66,10 +52,10 @@ export async function getPidIllust(id) {
         updateTime: details.upload_timestamp,
         tags: details.tags,
         restrict: details.x_restrict == 0 ? 'safe' : 'r18',
-        comment: details.comment,
-        bookmarks: details.bookmark_user_total,
-        likes: parseInt(details.rating_count),
-        views: parseInt(details.rating_view),
+        description: details.comment,
+        bookmarkCount: details.bookmark_user_total,
+        likeCount: parseInt(details.rating_count),
+        viewCount: parseInt(details.rating_view),
         author: {
             name: authorDetails.user_name,
             id: parseInt(authorDetails.user_id)

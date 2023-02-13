@@ -1,8 +1,6 @@
 import { pixivJsonFetch } from '../../../pixiv-fetch/index.js'
 import config from '../../../../config.js'
 /** @typedef {import('../../../../config.js').Lang} Lang */
-/** @typedef {import('../illust/pid.js').AuthorDTO} AuthorDTO */
-
 
 /**
  * @typedef {object} IllustPreviewDTO
@@ -15,8 +13,6 @@ import config from '../../../../config.js'
  */
 
 /**
- * @typedef {'all'|'safe'|'r18'} Restrict
- * 
  * @typedef {'date'|'popular'} SearchOrder
  * @typedef {'date_d'|'popular_male_d'} RawSearchOrder
  * 

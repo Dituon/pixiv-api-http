@@ -1,1 +1,1 @@
-export {getPidSeries} from './series-pid.js'
+export {getPidNovelSeriesInfo} from './series-pid.js'
