@@ -1,13 +1,17 @@
 import { pixivJsonFetch } from '../../../pixiv-fetch/index.js'
 
+/** @typedef {import('../search/search.js').Restrict} Restrict */
+
 /** 
  * @typedef {object} IllustDTO
  * 
  * @property {string} title
- * @property {number} pages page count
+ * @property {number} total page count
  * @property {ImageDTO[]} images
- * @property {number} time update timestamp
+ * @property {number} createTime create timestamp
+ * @property {number} updateTime update timestamp
  * @property {string[]} tags
+ * @property {Restrict} restrict
  * @property {string} comment
  * @property {number} bookmarks ❤ icon
  * @property {number} likes 😊 icon
@@ -56,10 +60,12 @@ export async function getPidIllust(id) {
     const authorDetails = details.author_details
     return {
         title: details.title,
-        pages,
+        total: pages,
         images,
-        time: details.upload_timestamp,
+        createTime: details.create_timestamp,
+        updateTime: details.upload_timestamp,
         tags: details.tags,
+        restrict: details.x_restrict == 0 ? 'safe' : 'r18',
         comment: details.comment,
         bookmarks: details.bookmark_user_total,
         likes: parseInt(details.rating_count),

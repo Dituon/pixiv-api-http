@@ -1,5 +1,6 @@
 import express from 'express'
 import { getPidIllust, getPidImage, getPidImageList } from './module/illust/index.js'
+import { getPidSeries } from './module/novel/index.js'
 
 /**
  * @param {Function} asyncFun
@@ -27,6 +28,8 @@ app.get('/illust/:id', callbackFactory(getPidIllust, 'id'))
 app.get('/illust/:id/images', callbackFactory(getPidImageList, 'id'))
 
 app.get('/illust/:id/images/:page', callbackFactory(getPidImage, 'id', 'page'))
+
+app.get('/novel/series/:id', callbackFactory(getPidSeries, 'id'))
 
 
 

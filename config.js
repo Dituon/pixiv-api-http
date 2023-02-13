@@ -45,4 +45,4 @@ export default {
     }
 }
 
-/** @typedef {'jp'|'zh'|'en'} Lang */
+/** @typedef {'ja'|'zh'|'en'} Lang */

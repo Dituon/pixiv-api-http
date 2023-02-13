@@ -1,7 +1,7 @@
 import { pixivJsonFetch } from '../../../pixiv-fetch/index.js'
 import config from '../../../../config.js'
 /** @typedef {import('../../../../config.js').Lang} Lang */
-/** @typedef {import('./pid.js').AuthorDTO} AuthorDTO */
+/** @typedef {import('../illust/pid.js').AuthorDTO} AuthorDTO */
 
 
 /**
@@ -15,7 +15,7 @@ import config from '../../../../config.js'
  */
 
 /**
- * @typedef {'all'|'safe'|'r18'} SearchGrading
+ * @typedef {'all'|'safe'|'r18'} Restrict
  * 
  * @typedef {'date'|'popular'} SearchOrder
  * @typedef {'date_d'|'popular_male_d'} RawSearchOrder
@@ -31,35 +31,45 @@ import config from '../../../../config.js'
 
 /**
  * @typedef {object} SearchParam
- * @property {SearchOrder} order
- * @property {number} blt
- * @property {SearchMode|RawSearchMode} mode
- * @property {SearchType|RawSearchType} type
- * @property {SearchGrading} mode
- * @property {Lang} lang
+ * @property {string} word
+ * @property {TemplateType} [template]
+ * @property {SearchOrder} [order]
+ * @property {number} [blt=0]
+ * @property {SearchMode|RawSearchMode} [mode]
+ * @property {SearchType|RawSearchType} [type]
+ * @property {Restrict} [mode]
+ * @property {number} [start=0]
+ * @property {number} [length=60]
+ * @property {number} [p=1]
+ * @property {Lang} [lang]
  */
 
 /** 
  * @typedef {object} RawSearchParam
+ * @property {string} word
  * @property {RawSearchOrder} order
  * @property {number} blt
  * @property {RawSearchMode} s_mode
  * @property {RawSearchType} type
- * @property {SearchGrading} mode
+ * @property {Restrict} mode
+ * @property {number} p
  * @property {Lang} lang
  */
 
 /**
  * @typedef {object} SearchResultDTO
- * @property {IllustPreviewDTO} illusts
+ * @property {IllustPreviewDTO[]} illusts
  * @property {number} total
  */
 
+/** @private @readonly */
+const PAGE_SIZE = 60
 const lang = config.pixiv.lang
 const defaultParams = {
     word: '',
     order: 'date_d',
-    p: 1,
+    start: 0,
+    length: PAGE_SIZE,
     blt: 0,
     s_mode: 's_tag',
     type: 'all',
@@ -99,7 +109,7 @@ const searchTypes = {
 
 /**
  * @param {SearchParam} param 
- * @return 
+ * @return {Promise<SearchResultDTO>}
  */
 export async function searchFormat(param) {
     param = { ...defaultParams, ...templates[param.template], ...param }
@@ -107,12 +117,29 @@ export async function searchFormat(param) {
     param.mode = searchModes[param.mode] ?? param.mode
     param.type = searchTypes[param.type] ?? param.type
 
-    return search(param)
+    if (param.p) return search(param)
+
+    let end = param.start + param.length
+    let e = Math.ceil(end / PAGE_SIZE)
+    let s = Math.ceil(param.start / PAGE_SIZE)
+    const promiseArr = []
+    for (let p = s; p < e; p++) {
+        promiseArr.push(search({ ...param, p }))
+    }
+    const res = (await Promise.all(promiseArr)).reduce((result, pageData) => {
+        result.illusts.push(...pageData.illusts)
+        result.total = pageData.total
+    }, {
+        illusts: [],
+        total: 0
+    })
+    res.illusts = res.illusts.slice(param.start, end)
+    return res
 }
 
 /**
  * @param {RawSearchParam} param 
- * @return {}
+ * @return {Promise<SearchResultDTO>}
  */
 export async function search(param) {
     // param = { ...defaultParams, ...templates[param.template], ...param }
