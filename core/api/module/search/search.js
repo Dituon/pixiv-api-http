@@ -3,12 +3,13 @@ import config from '../../../../config.js'
 /** @typedef {import('../../../../config.js').Lang} Lang */
 
 /**
- * @typedef {object} IllustPreviewDTO
+ * @typedef {object} ResultPreviewDTO
  * @property {number} id
  * @property {string} title
  * @property {string} preview
  * @property {string[]} tags
- * @property {number} time
+ * @property {number} createTime
+ * @property {number} updateTime
  * @property {AuthorDTO} author
  */
 
@@ -54,7 +55,7 @@ import config from '../../../../config.js'
 
 /**
  * @typedef {object} SearchResultDTO
- * @property {IllustPreviewDTO[]} illusts
+ * @property {ResultPreviewDTO[]} results
  * @property {number} total
  */
 
@@ -99,12 +100,12 @@ const searchModes = {
 }
 
 const searchTypes = {
-    artworks: {path: 'artworks', type: 'all'},
-    illust: {path: 'illustrations', type: 'illust'},
-    gif: {path: 'illustrations', type: 'ugoira'},
-    illust_and_gif: {path: 'illustrations', type: 'illust_and_ugoira'},
-    manga: {path:'manga', type:'manga'},
-    novel: {path: 'novels', type: ''}
+    artworks: { path: 'artworks', type: 'all', name: 'illustManga' },
+    illust: { path: 'illustrations', type: 'illust', name: 'illust' },
+    gif: { path: 'illustrations', type: 'ugoira', name: 'illust' },
+    illust_and_gif: { path: 'illustrations', type: 'illust_and_ugoira', name: 'illust' },
+    manga: { path: 'manga', type: 'manga', name: 'manga' },
+    novel: { path: 'novels', type: '', name: 'novel' }
 }
 
 /**
@@ -115,28 +116,29 @@ export async function searchFormat(param) {
     param = { ...defaultParams, ...templates[param.template], ...param }
     param.order = searchOrders[param.order] ?? param.order
     param.s_mode = searchModes[param.mode] ?? param.mode
-    param.mode = param.restrict
-    inf = searchTypes[param.type]
+    param.mode = param.restrict ?? 'safe'
+    const inf = searchTypes[param.type]
     param.type = inf?.type ?? param.type
-    path = inf?.path ?? 'illustrations'
+    const path = inf?.path ?? 'illustrations'
 
-    if (param.p) return search(path, param)
+    if (param.p) return search(path, inf.name, param)
 
     let end = param.start + param.length
     let e = Math.ceil(end / PAGE_SIZE)
     let s = Math.ceil(param.start / PAGE_SIZE)
     const promiseArr = []
-    for (let p = s; p < e; p++) {
-        promiseArr.push(search(path, { ...param, p }))
+    for (let p = s + 1; p <= e; p++) {
+        promiseArr.push(search(path, inf.name, { ...param, p }))
     }
     const res = (await Promise.all(promiseArr)).reduce((result, pageData) => {
-        result.illusts.push(...pageData.illusts)
+        result.results.push(...pageData.results)
         result.total = pageData.total
+        return result
     }, {
-        illusts: [],
+        results: [],
         total: 0
     })
-    res.illusts = res.illusts.slice(param.start, end)
+    res.results = res.results.slice(param.start, end)
     return res
 }
 
@@ -145,25 +147,26 @@ export async function searchFormat(param) {
  * @param {RawSearchParam} param
  * @return {Promise<SearchResultDTO>}
  */
-export async function search(path, param) {
+export async function search(path, dataName, param) {
     // param = { ...defaultParams, ...templates[param.template], ...param }
-    const data = await pixivJsonFetch(`/ajax/search/${path}/${param.word}?${Object.entries(param).reduce((str, item) => str += `&${item[0]}=${item[1]}`)}`)
-    const illusts = []
-    for (const single of data.illustManga.data) {
-        illusts.push({
+    const data = await pixivJsonFetch(`/ajax/search/${path}/${encodeURIComponent(param.word)}?${new URLSearchParams(param).toString()}`)
+    const results = []
+    for (const single of data[dataName].data) {
+        results.push({
             id: parseInt(single.id),
             title: single.title,
             preview: single.url,
             tags: single.tags,
-            time: new Date(single.updateDate).getSeconds(),
+            cerateTime: new Date(single.createDate).getTime(),
+            updateTime: new Date(single.updateDate).getTime(),
             author: {
-                name: parseInt(single.userName),
-                id: single.userId
+                name: single.userName,
+                id: parseInt(single.userId)
             }
         })
     }
     return {
-        illusts,
-        total: data.illustManga.total
+        results,
+        total: data[dataName].total
     }
 }
