@@ -19,8 +19,8 @@ import config from '../../../../config.js'
  * @typedef {'tag'|'full'|'content'} SearchMode
  * @typedef {'s_tag'|'s_tag_full'|'s_tc'} RawSearchMode
  * 
- * @typedef {'illust'|'gif'|'manga'|'novel'} SearchType
- * @typedef {'illust'|'ugoira'|'illust_and_ugoira'|'manga'|'novel'} RawSearchType
+ * @typedef {'artwork'|'illust'|'gif'|'illust_and_gif'|'manga'|'novel'} SearchType
+ * @typedef {'all'|'illust'|'ugoira'|'illust_and_ugoira'|'manga'} RawSearchType
  * 
  * @typedef {'top'|'default'|'enhance'} TemplateType
  */
@@ -33,7 +33,7 @@ import config from '../../../../config.js'
  * @property {number} [blt=0]
  * @property {SearchMode|RawSearchMode} [mode]
  * @property {SearchType|RawSearchType} [type]
- * @property {Restrict} [mode]
+ * @property {Restrict} [restrict='safe']
  * @property {number} [start=0]
  * @property {number} [length=60]
  * @property {number} [p=1]
@@ -68,7 +68,7 @@ const defaultParams = {
     length: PAGE_SIZE,
     blt: 0,
     s_mode: 's_tag',
-    type: 'all',
+    type: 'illust',
     mode: 'safe',
     lang
 }
@@ -98,29 +98,36 @@ const searchModes = {
     tag: 's_tag', full: 's_tag_full', content: 's_tc'
 }
 
-/** @type {object<SearchType, RawSearchType>} */
 const searchTypes = {
-    gif: 'ugoira'
+    artworks: {path: 'artworks', type: 'all'},
+    illust: {path: 'illustrations', type: 'illust'},
+    gif: {path: 'illustrations', type: 'ugoira'},
+    illust_and_gif: {path: 'illustrations', type: 'illust_and_ugoira'},
+    manga: {path:'manga', type:'manga'},
+    novel: {path: 'novels', type: ''}
 }
 
 /**
- * @param {SearchParam} param 
+ * @param {SearchParam} param
  * @return {Promise<SearchResultDTO>}
  */
 export async function searchFormat(param) {
     param = { ...defaultParams, ...templates[param.template], ...param }
     param.order = searchOrders[param.order] ?? param.order
-    param.mode = searchModes[param.mode] ?? param.mode
-    param.type = searchTypes[param.type] ?? param.type
+    param.s_mode = searchModes[param.mode] ?? param.mode
+    param.mode = param.restrict
+    inf = searchTypes[param.type]
+    param.type = inf?.type ?? param.type
+    path = inf?.path ?? 'illustrations'
 
-    if (param.p) return search(param)
+    if (param.p) return search(path, param)
 
     let end = param.start + param.length
     let e = Math.ceil(end / PAGE_SIZE)
     let s = Math.ceil(param.start / PAGE_SIZE)
     const promiseArr = []
     for (let p = s; p < e; p++) {
-        promiseArr.push(search({ ...param, p }))
+        promiseArr.push(search(path, { ...param, p }))
     }
     const res = (await Promise.all(promiseArr)).reduce((result, pageData) => {
         result.illusts.push(...pageData.illusts)
@@ -134,12 +141,13 @@ export async function searchFormat(param) {
 }
 
 /**
- * @param {RawSearchParam} param 
+ * @param {'illustrations'|'artworks'|'manga'|'novels'} path
+ * @param {RawSearchParam} param
  * @return {Promise<SearchResultDTO>}
  */
-export async function search(param) {
+export async function search(path, param) {
     // param = { ...defaultParams, ...templates[param.template], ...param }
-    const data = await pixivJsonFetch(`/ajax/search/artworks/${param.word}?${Object.entries(param).reduce((str, item) => str += `&${item[0]}=${item[1]}`)}`)
+    const data = await pixivJsonFetch(`/ajax/search/${path}/${param.word}?${Object.entries(param).reduce((str, item) => str += `&${item[0]}=${item[1]}`)}`)
     const illusts = []
     for (const single of data.illustManga.data) {
         illusts.push({
