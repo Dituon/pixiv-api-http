@@ -9,8 +9,11 @@
 - 绕过政府防火墙SNI封锁
 - 使用图床原始IP地址
 
+# API
+
+- [Illust](./core/api/module/illust/README.md)
+
 ## TODO
 
 - manga
-- novel
 - gif

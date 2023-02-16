@@ -121,6 +121,8 @@ export async function searchFormat(param) {
     param.type = inf?.type ?? param.type
     const path = inf?.path ?? 'illustrations'
 
+    if (param.type === 'novel') param.work_lang = param.lang
+
     if (param.p) return search(path, inf.name, param)
 
     let end = param.start + param.length

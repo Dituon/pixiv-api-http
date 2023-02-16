@@ -27,28 +27,40 @@ export async function getPidIllust(id) {
         '/touch/ajax/illust/details?illust_id=' + id
     )
     const details = illust.illust_details
+    const authorDetails = details.author_details
     const pages = parseInt(details.page_count)
     /** @type { ImageDTO[] } */
     const images = []
-    for (let i = 0; i < pages; i++) {
-        const {
-            illust_image_width: width,
-            illust_image_height: height
-        } = details.illust_images[i]
-        const {
-            url: regular,
-            url_small: small,
-            url_big: original
-        } = details.manga_a[i]
-        images.push({ urls: { small, regular, original }, width, height })
+    if (pages == 1) {
+        images.push({
+            urls: {
+                small: details.url_s,
+                regular: details.url,
+                original: details.url_big
+            },
+            width: parseInt(details.illust_images[0].illust_image_width),
+            height: parseInt(details.illust_images[0].illust_image_height)
+        })
+    } else {
+        for (let i = 0; i < pages; i++) {
+            const {
+                illust_image_width: width,
+                illust_image_height: height
+            } = details.illust_images[i]
+            const {
+                url: regular,
+                url_small: small,
+                url_big: original
+            } = details.manga_a[i]
+            images.push({ urls: { small, regular, original }, width, height })
+        }
     }
-    const authorDetails = details.author_details
     return {
         id,
         title: details.title,
         total: pages,
         images,
-        createTime: details.create_timestamp,
+        createTime: details.create_timestamp ?? details.upload_timestamp,
         updateTime: details.upload_timestamp,
         tags: details.tags,
         restrict: details.x_restrict == 0 ? 'safe' : 'r18',
