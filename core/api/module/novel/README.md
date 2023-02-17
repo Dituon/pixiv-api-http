@@ -2,7 +2,7 @@
 
 <details>
 <summary>
-### `GET` `/novel/{id}` 
+<b><code>GET</code><code>/novel/{id}` 
 </summary>
 
 | 参数 | 类型     | 描述 |
@@ -75,7 +75,7 @@
 
 <details>
 <summary>
-### `GET` `/novel/series/{id}`
+<b><code>GET</code><code>/novel/series/{id}</code></b>
 </summary>
 
 | 参数 | 类型     | 描述 |
@@ -142,7 +142,7 @@
 
 <details>
 <summary>
-### `GET` `/novel/series/{id}/info`
+<b><code>GET</code><code>/novel/series/{id}/info</code></b>
 </summary>
 
 | 参数 | 类型     | 描述 |
@@ -200,7 +200,7 @@
 
 <details>
 <summary>
-### `GET` `/novel/series/{id}/content`
+<b><code>GET</code><code>/novel/series/{id}/content</code></b>
 </summary>
 
 | 参数 | 类型     | 描述 |

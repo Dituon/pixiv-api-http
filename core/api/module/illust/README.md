@@ -2,7 +2,7 @@
 
 <details>
 <summary>
-### `GET` `/illust/{id}`
+<b><code>GET</code></b><b><code>/illust/{id}</code></b>
 </summary>
 
 | 参数 | 类型     | 描述 |
@@ -66,7 +66,7 @@
 
 <details>
 <summary>
-### `GET` `/illust/{id}/images`
+<b><code>GET</code></b><b><code>/illust/{id}/images</code></b>
 </summary>
 
 | 参数 | 类型     | 描述 |
@@ -94,7 +94,7 @@
 
 <details>
 <summary>
-### `GET` `/illust/{id}/images/{page}`
+<b><code>GET</code></b><b><code>/illust/{id}/images/{page}</code></b>
 </summary>
 
 | 参数   | 类型     | 描述   |
