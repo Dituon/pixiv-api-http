@@ -2,8 +2,9 @@
 
 <details>
 <summary>
-<b><code>GET</code><code>/novel/{id}` 
+<b><code>GET</code></b><b><code>/novel/{id}` 
 </summary>
+<br/>
 
 | 参数 | 类型     | 描述 |
 | ---- | -------- | ---- |
@@ -71,12 +72,14 @@
     "content": "..."
 }
 ```
+---
 </details>
 
 <details>
 <summary>
-<b><code>GET</code><code>/novel/series/{id}</code></b>
+<b><code>GET</code></b><b><code>/novel/series/{id}</code></b>
 </summary>
+<br/>
 
 | 参数 | 类型     | 描述 |
 | ---- | -------- | ---- |
@@ -138,12 +141,14 @@
     ]
 }
 ```
+---
 </details>
 
 <details>
 <summary>
-<b><code>GET</code><code>/novel/series/{id}/info</code></b>
+<b><code>GET</code></b><b><code>/novel/series/{id}/info</code></b>
 </summary>
+<br/>
 
 | 参数 | 类型     | 描述 |
 | ---- | -------- | ---- |
@@ -196,12 +201,14 @@
     }
 }
 ```
+---
 </details>
 
 <details>
 <summary>
-<b><code>GET</code><code>/novel/series/{id}/content</code></b>
+<b><code>GET</code></b><b><code>/novel/series/{id}/content</code></b>
 </summary>
+<br/>
 
 | 参数 | 类型     | 描述 |
 | ---- | -------- | ---- |
@@ -237,4 +244,5 @@
     ...
 ]
 ```
+---
 </details>

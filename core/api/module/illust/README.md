@@ -4,6 +4,7 @@
 <summary>
 <b><code>GET</code></b><b><code>/illust/{id}</code></b>
 </summary>
+<br/>
 
 | 参数 | 类型     | 描述 |
 | ---- | -------- | ---- |
@@ -68,6 +69,7 @@
 <summary>
 <b><code>GET</code></b><b><code>/illust/{id}/images</code></b>
 </summary>
+<br/>
 
 | 参数 | 类型     | 描述 |
 | ---- | -------- | ---- |
@@ -90,12 +92,13 @@
   }
 ]
 ```
-<details>
+</details>
 
 <details>
 <summary>
 <b><code>GET</code></b><b><code>/illust/{id}/images/{page}</code></b>
 </summary>
+<br/>
 
 | 参数   | 类型     | 描述   |
 | ------ | -------- | ------ |
