@@ -2,7 +2,7 @@
 
 <details>
 <summary>
-<b><code>GET</code></b><b><code>/novel/{id}` 
+<b><code>GET</code></b><b><code>/novel/{id}</code></b>
 </summary>
 <br/>
 
