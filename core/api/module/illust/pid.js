@@ -56,7 +56,7 @@ export async function getPidIllust(id) {
         }
     }
     return {
-        id,
+        id: parseInt(id),
         title: details.title,
         total: pages,
         images,

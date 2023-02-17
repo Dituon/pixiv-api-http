@@ -31,7 +31,8 @@ export default async function pixivFetch(option) {
  * @param {string} path
  * @return { Promise<object> }
  */
-export async function pixivJsonFetch(path) {
+export async function pixivJsonFetch(path, query) {
+    if (query) path += '?' + new URLSearchParams(query).toString()
     const json = await pixivFetch({path}).then(JSON.parse)
     if (json.error) throw new Error(json.message)
     return json.body

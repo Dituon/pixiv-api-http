@@ -30,21 +30,24 @@ export async function getPidNovel(id) {
     const details = novel.novel_details
     const series = details.series
     return {
-        id,
+        id: parseInt(id),
         title: details.title,
         description: details.comment,
         tags: details.tags,
         lang: details.language,
         restrict: details.x_restrict == 0 ? 'safe' : 'r18',
-        charCount: details.character_count,
+        charCount: parseInt(details.character_count),
         wordCount: details.word_count,
         readingTime: details.reading_time,
         createTime: details.create_time,
         updateTime: details.update_time,
+        bookmarkCount: details.bookmark_count,
+        likeCount: parseInt(details.rating_count),
+        viewCount: parseInt(details.rating_view),
 
         cover: details.url,
-        series: {
-            id: series.id,
+        series: !series ? null : {
+            id: parseInt(series.id),
             title: series.title,
             order: series.order,
             prev: {

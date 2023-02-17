@@ -5,4 +5,4 @@
 
 /** @typedef {'manga'} */
 
-export {search, searchFormat} from '../illust/search.js'
+export {search, searchFormat} from './search.js'
