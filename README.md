@@ -12,6 +12,7 @@
 # API
 
 - [Illust](./core/api/module/illust/README.md)
+- [Novel](./core/api/module/novel/README.md)
 
 ## TODO
 

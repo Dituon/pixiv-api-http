@@ -1,6 +1,9 @@
 ## HTTP 请求
 
+<details>
+<summary>
 ### `GET` `/illust/{id}`
+</summary>
 
 | 参数 | 类型     | 描述 |
 | ---- | -------- | ---- |
@@ -59,8 +62,12 @@
     }
 }
 ```
+</details>
 
+<details>
+<summary>
 ### `GET` `/illust/{id}/images`
+</summary>
 
 | 参数 | 类型     | 描述 |
 | ---- | -------- | ---- |
@@ -83,8 +90,12 @@
   }
 ]
 ```
+<details>
 
+<details>
+<summary>
 ### `GET` `/illust/{id}/images/{page}`
+</summary>
 
 | 参数   | 类型     | 描述   |
 | ------ | -------- | ------ |
@@ -106,3 +117,4 @@
   "height": 2364
 }
 ```
+</details>

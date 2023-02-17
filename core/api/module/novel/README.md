@@ -1,6 +1,9 @@
 ## HTTP 请求
 
-### `GET` `/novel/{id}`
+<details>
+<summary>
+### `GET` `/novel/{id}` 
+</summary>
 
 | 参数 | 类型     | 描述 |
 | ---- | -------- | ---- |
@@ -68,8 +71,12 @@
     "content": "..."
 }
 ```
+</details>
 
+<details>
+<summary>
 ### `GET` `/novel/series/{id}`
+</summary>
 
 | 参数 | 类型     | 描述 |
 | ---- | -------- | ---- |
@@ -131,8 +138,12 @@
     ]
 }
 ```
+</details>
 
+<details>
+<summary>
 ### `GET` `/novel/series/{id}/info`
+</summary>
 
 | 参数 | 类型     | 描述 |
 | ---- | -------- | ---- |
@@ -185,8 +196,12 @@
     }
 }
 ```
+</details>
 
+<details>
+<summary>
 ### `GET` `/novel/series/{id}/content`
+</summary>
 
 | 参数 | 类型     | 描述 |
 | ---- | -------- | ---- |
@@ -222,3 +237,4 @@
     ...
 ]
 ```
+</details>
