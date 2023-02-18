@@ -41,7 +41,6 @@ app.get('/novel/series/:id/info', callbackFactory(getPidNovelSeriesInfo, 'id'))
 app.get('/novel/series/:id/content', callbackFactory(getPidNovelSeriesContent, 'id'))
 
 app.post('/search', async (req, res, next) => {
-    console.log(req.body)
     const data = await searchFormat(req.body)
     res.json(data)
     next()

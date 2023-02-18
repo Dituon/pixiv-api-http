@@ -36,7 +36,7 @@ export default {
     
     pixiv: {
         /** @type {Lang} */
-        lang: 'zh',
+        lang: 'zh-cn',
 
         // your cookie here (use `document.cookie` to get cookie in `www.pixiv.net` console)
         // 你的 Cookie (在 `www.pixiv.net` 控制台使用 `document.cookie` 获取)

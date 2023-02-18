@@ -85,7 +85,7 @@ const templates = {
     },
     enhance: {
         order: 'date_d',
-        blt: 100
+        blt: 50
     }
 }
 
@@ -128,6 +128,8 @@ export async function searchFormat(param) {
     let end = param.start + param.length
     let e = Math.ceil(end / PAGE_SIZE)
     let s = Math.ceil(param.start / PAGE_SIZE)
+    // delete param.start
+    // delete param.length
     const promiseArr = []
     for (let p = s + 1; p <= e; p++) {
         promiseArr.push(search(path, inf.name, { ...param, p }))
