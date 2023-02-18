@@ -1,7 +1,9 @@
 ## HTTP 请求
 
+<details open>
+<summary>
 <b><code>POST</code></b><b><code>/search</code></b>
-
+</summary>
 <br/>
 
 ### `SearchParam`:
@@ -114,3 +116,5 @@
     "total": 1918834
 }
 ```
+
+</derails>
