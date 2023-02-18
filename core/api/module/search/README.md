@@ -4,7 +4,6 @@
 <summary>
 <b><code>POST</code></b><b><code>/search</code></b>
 </summary>
-<br/>
 
 ### `SearchParam`:
 
@@ -27,13 +26,14 @@
 
 限定搜索类型
 
-| Name             | Description    |
-| ---------------- | -------------- |
-| `illust`         | 插画           |
-| `gif`            | 动态插画 (GIF) |
-| `illust_and_gif` | 插画与动态插画 |
-| `manga`          | 漫画           |
-| `novel`          | 小说           |
+| Name             | Description          |
+| ---------------- | -------------------- |
+| `illust`         | 插画                 |
+| `gif`            | 动态插画 (GIF)       |
+| `illust_and_gif` | 插画与动态插画       |
+| `manga`          | 漫画                 |
+| `artwork`        | 插画, 动态插画与漫画 |
+| `novel`          | 小说                 |
 
 ##### `TemplateType`
 
