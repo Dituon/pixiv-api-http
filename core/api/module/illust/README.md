@@ -63,6 +63,7 @@
     }
 }
 ```
+---
 </details>
 
 <details>
@@ -92,6 +93,7 @@
   }
 ]
 ```
+---
 </details>
 
 <details>
@@ -120,4 +122,5 @@
   "height": 2364
 }
 ```
+---
 </details>

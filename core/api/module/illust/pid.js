@@ -26,12 +26,40 @@ export async function getPidIllust(id) {
     const illust = await pixivJsonFetch(
         '/touch/ajax/illust/details?illust_id=' + id
     )
-    const details = illust.illust_details
+    return getBaseIllustDTO(illust.illust_details)
+}
+
+/**
+ * @param {number} id
+ * @return {Promise<ImageDTO[]>}
+ */
+export async function getPidImageList(id) {
+    return await pixivJsonFetch(
+        `/ajax/illust/${id}/pages`
+    )
+}
+
+/**
+ * @param {number} id
+ * @param {number} page index + 1 of illust
+ * @return {Promise<ImageDTO>}
+ */
+export async function getPidImage(id, page) {
+    const imgs = await getPidImageList(id)
+    try {
+        return imgs[page - 1]
+    } catch {
+        throw new RangeError(`no page ${page} in illust ${id}`)
+    }
+}
+
+/** @return {IllustDTO} */
+export function getBaseIllustDTO(details) {
     const authorDetails = details.author_details
     const pages = parseInt(details.page_count)
     /** @type { ImageDTO[] } */
     const images = []
-    if (pages == 1) {
+    if (pages === 1) {
         images.push({
             urls: {
                 small: details.url_s,
@@ -56,7 +84,7 @@ export async function getPidIllust(id) {
         }
     }
     return {
-        id: parseInt(id),
+        id: parseInt(details.id),
         title: details.title,
         total: pages,
         images,
@@ -72,29 +100,5 @@ export async function getPidIllust(id) {
             name: authorDetails.user_name,
             id: parseInt(authorDetails.user_id)
         }
-    }
-}
-
-/**
- * @param {number} id
- * @return {Promise<ImageDTO[]>}
- */
-export async function getPidImageList(id) {
-    return await pixivJsonFetch(
-        `/ajax/illust/${id}/pages`
-    )
-}
-
-/**
- * @param {number} id
- * @param {number} page index + 1 of illust
- * @return {Promise<ImageDTO>}
- */
-export async function getPidImage(id, page) {
-    const imgs = await getPidImageList(id)
-    try {
-        return imgs[page - 1]
-    } catch {
-        throw new RangeError(`no page ${page} in illust ${id}`)
     }
 }
