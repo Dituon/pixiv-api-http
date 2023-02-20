@@ -1,6 +1,8 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 
+import config from '../../config.js'
+
 import { getPidIllust, getPidImage, getPidImageList, getPidManga } from './module/illust/index.js'
 import { getPidNovelSeries, getPidNovelSeriesContent, getPidNovelSeriesInfo, getPidNovel } from './module/novel/index.js'
 import { searchFormat } from './module/search/search.js'
@@ -24,27 +26,25 @@ export const callbackFactory = (asyncFun, ...params) => async (req, res, next) =
 
 export const app = express()
 app.use(bodyParser.json())
-app.listen(1145)
+app.listen(config.server.port)
 
+// illust
 app.get('/illust/:id', callbackFactory(getPidIllust, 'id'))
-
 app.get('/illust/:id/images', callbackFactory(getPidImageList, 'id'))
-
 app.get('/illust/:id/images/:page', callbackFactory(getPidImage, 'id', 'page'))
 
+// manga
 app.get('/manga/:id', callbackFactory(getPidManga, 'id'))
 
+// novel
 app.get('/novel/:id', callbackFactory(getPidNovel, 'id'))
-
 app.get('/novel/series/:id', callbackFactory(getPidNovelSeries, 'id'))
-
 app.get('/novel/series/:id/info', callbackFactory(getPidNovelSeriesInfo, 'id'))
-
 app.get('/novel/series/:id/content', callbackFactory(getPidNovelSeriesContent, 'id'))
 
+// search
 app.post('/search', async (req, res, next) => {
     const data = await searchFormat(req.body)
     res.json(data)
     next()
 })
-
