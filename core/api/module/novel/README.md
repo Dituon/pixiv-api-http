@@ -14,32 +14,32 @@
 
 返回: `NovelDTO`
 
-| key             | 类型               | 描述            |
-| --------------- | ------------------ | --------------- |
-| `id`            | `number`           | Pid             |
-| `title`         | `string`           | 标题            |
-| `description`   | `string`           | 介绍            |
-| `tags`          | `string[]`         | 标签数组        |
-| `lang`          | `Language`         | 语言枚举        |
-| `restrict`      | `Restrict`         | 限制等级        |
-| `charCount`     | `number`           | 字节数          |
-| `wordCount`     | `number`           | 词数            |
-| `createTime`    | `number`           | 创建日期        |
-| `updateTime`    | `number`           | 更新日期        |
-| `readingTime`   | `number`           | 阅读时间        |
-| `bookmarkCount` | `number`           | 收藏数 (❤ 图标) |
-| `likeCount`     | `number`           | 喜欢数 (😊 图标) |
-| `viewCount`     | `number`           | 浏览量 (👁 图标) |
-| `cover`         | `string`           | 封面图片        |
-| `series`        | `ContentSeriesDTO` | 系列数据        |
-| `author`        | `AuthorDTO`        | 作者            |
-| `content`       | `string`           | 正文            |
+| key             | 类型            | 描述            |
+| --------------- | --------------- | --------------- |
+| `id`            | `number`        | Pid             |
+| `title`         | `string`        | 标题            |
+| `description`   | `string`        | 介绍            |
+| `tags`          | `string[]`      | 标签数组        |
+| `lang`          | `Language`      | 语言枚举        |
+| `restrict`      | `Restrict`      | 限制等级        |
+| `charCount`     | `number`        | 字节数          |
+| `wordCount`     | `number`        | 词数            |
+| `createTime`    | `number`        | 创建日期        |
+| `updateTime`    | `number`        | 更新日期        |
+| `readingTime`   | `number`        | 阅读时间        |
+| `bookmarkCount` | `number`        | 收藏数 (❤ 图标) |
+| `likeCount`     | `number`        | 喜欢数 (😊 图标) |
+| `viewCount`     | `number`        | 浏览量 (👁 图标) |
+| `cover`         | `string`        | 封面图片        |
+| `series`        | `ItemSeriesDTO` | 系列数据        |
+| `author`        | `AuthorDTO`     | 作者            |
+| `content`       | `string`        | 正文            |
 
 ```
 {
     "id": 19115002,
     "title": "第2話『はじめての登下校』",
-    "description": "",
+    "description": "...",
     "tags": [
         "百合",
         "..."
@@ -56,6 +56,7 @@
     "series": {
         "id": 9943394,
         "title": "言語チート転生〜幼女VTuberは世界を救う〜",
+        "order": 2,
         "prev": {
             "id": 19114998,
             "title": "第1話『終わりとはじまり』"

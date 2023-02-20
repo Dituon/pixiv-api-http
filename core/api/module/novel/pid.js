@@ -1,8 +1,6 @@
 import { pixivJsonFetch, replaceOrigin } from "../../../pixiv-fetch/index.js";
 /** @typedef {import('../../../../config.js').Lang} Lang */
 
-/** @typedef {{id: number, title: string}} BaseNovelInfoDTO */
-
 /** 
  * @typedef {BaseItemInfoDTO & {
  *     lang: Lang,
@@ -17,11 +15,7 @@ import { pixivJsonFetch, replaceOrigin } from "../../../pixiv-fetch/index.js";
 /**
  * @typedef {NovelInfoDTO & {
  *     content: string,
- *     series: BaseNovelInfoDTO & {
- *         order: number,
- *         prev: BaseNovelInfoDTO,
- *         next: BaseNovelInfoDTO
- *     }
+ *     series: BaseItemServiceInfoDTO
  * }} NovelItemDTO 
  */
 
@@ -49,12 +43,12 @@ export async function getPidNovel(id) {
         series: !series ? null : {
             id: parseInt(series.id),
             title: series.title,
-            order: series.order,
-            prev: {
+            order: series.content_order,
+            prev: !series.prev_novel ? null : {
                 id: series.prev_novel.id,
                 title: series.prev_novel.title
             },
-            next: {
+            next: !series.next_novel ? null : {
                 id: series.next_novel.id,
                 title: series.next_novel.title
             }

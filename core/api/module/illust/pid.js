@@ -1,11 +1,10 @@
 import { pixivJsonFetch, replaceOrigin } from '../../../pixiv-fetch/index.js'
-
 /** 
  * @typedef {BaseItemInfoDTO & {
- *     total: number,
- *     images: ImageDTO[]
- * }} IllustDTO
- */
+*     total: number,
+*     images: ImageDTO[]
+* }} IllustDTO
+*/
 
 /** 
  * @typedef {object} ImageDTO
@@ -79,10 +78,11 @@ export function getBaseIllustDTO(details) {
             images.push({
                 urls: {
                     small: replaceOrigin(o.url_small),
-                    regular: replaceOrigin(o.url), 
+                    regular: replaceOrigin(o.url),
                     original: replaceOrigin(o.url_big)
                 },
-                width, height
+                width: parseInt(width),
+                height: parseInt(height)
             })
         }
     }

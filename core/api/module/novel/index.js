@@ -1,4 +1,4 @@
-export { getPidNovel } from './pid.js'
+export * from './pid.js'
 
 export {
     default as getPidNovelSeries,

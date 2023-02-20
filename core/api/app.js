@@ -1,7 +1,7 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 
-import { getPidIllust, getPidImage, getPidImageList } from './module/illust/index.js'
+import { getPidIllust, getPidImage, getPidImageList, getPidManga } from './module/illust/index.js'
 import { getPidNovelSeries, getPidNovelSeriesContent, getPidNovelSeriesInfo, getPidNovel } from './module/novel/index.js'
 import { searchFormat } from './module/search/search.js'
 
@@ -31,6 +31,8 @@ app.get('/illust/:id', callbackFactory(getPidIllust, 'id'))
 app.get('/illust/:id/images', callbackFactory(getPidImageList, 'id'))
 
 app.get('/illust/:id/images/:page', callbackFactory(getPidImage, 'id', 'page'))
+
+app.get('/manga/:id', callbackFactory(getPidManga, 'id'))
 
 app.get('/novel/:id', callbackFactory(getPidNovel, 'id'))
 

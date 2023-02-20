@@ -17,5 +17,5 @@
 
 ## TODO
 
-- manga
+- manga-series
 - gif
