@@ -13,7 +13,7 @@ export const staticAgent = ip => new https.Agent({
 export let agent = !bypassSNI ?
     https.globalAgent : staticAgent(config.proxy.serverHost[0])
 
-if (!bypassSNI) { //test ip
+if (bypassSNI) { //test ip
     for (const hostIp of config.proxy.serverHost) {
         const { status, ip } = await new Promise((res, rej) => {
             const request = https.request({

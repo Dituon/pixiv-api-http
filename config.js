@@ -21,7 +21,7 @@ export default {
         // replace img url to original ip, improve access speed
         // 替换图片链接为原始IP, 可在墙内通过原始IP获取图片
         useOriginIP: true,
-        imgBedHost: [ // i.pximg.net, direct connection by ip available
+        imageHost: [ // i.pximg.net, direct connection by ip available
             '210.140.92.141',
             '210.140.92.149',
             '210.140.92.142',

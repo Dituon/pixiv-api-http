@@ -1,4 +1,4 @@
-import { pixivJsonFetch } from '../../../pixiv-fetch/index.js'
+import { pixivJsonFetch, replaceOrigin } from '../../../pixiv-fetch/index.js'
 
 /** 
  * @typedef {BaseItemInfoDTO & {
@@ -62,9 +62,9 @@ export function getBaseIllustDTO(details) {
     if (pages === 1) {
         images.push({
             urls: {
-                small: details.url_s,
-                regular: details.url,
-                original: details.url_big
+                small: replaceOrigin(details.url_s),
+                regular: replaceOrigin(details.url),
+                original: replaceOrigin(details.url_big)
             },
             width: parseInt(details.illust_images[0].illust_image_width),
             height: parseInt(details.illust_images[0].illust_image_height)
@@ -75,12 +75,15 @@ export function getBaseIllustDTO(details) {
                 illust_image_width: width,
                 illust_image_height: height
             } = details.illust_images[i]
-            const {
-                url: regular,
-                url_small: small,
-                url_big: original
-            } = details.manga_a[i]
-            images.push({ urls: { small, regular, original }, width, height })
+            const o = details.manga_a[i]
+            images.push({
+                urls: {
+                    small: replaceOrigin(o.url_small),
+                    regular: replaceOrigin(o.url), 
+                    original: replaceOrigin(o.url_big)
+                },
+                width, height
+            })
         }
     }
     return {

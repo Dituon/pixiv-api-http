@@ -6,7 +6,7 @@ import config from '../../../../config.js'
  * @typedef {object} ResultPreviewDTO
  * @property {number} id
  * @property {string} title
- * @property {string} preview
+ * @property {string} cover
  * @property {string[]} tags
  * @property {number} createTime
  * @property {number} updateTime
@@ -159,7 +159,7 @@ export async function search(path, dataName, param) {
         results.push({
             id: parseInt(single.id),
             title: single.title,
-            preview: single.url,
+            cover: single.url,
             tags: single.tags,
             cerateTime: new Date(single.createDate).getTime(),
             updateTime: new Date(single.updateDate).getTime(),
