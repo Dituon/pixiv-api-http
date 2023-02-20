@@ -42,6 +42,11 @@ export default {
         // 你的 Cookie (在 `www.pixiv.net` 控制台使用 `document.cookie` 获取)
         cookie: ''
 
+    }, 
+
+    server: {
+        port: 1145,
+        
     }
 }
 
