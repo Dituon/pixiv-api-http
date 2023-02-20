@@ -19,7 +19,7 @@
 ## Deploy
 
 0. install `node.js`
-1. `git clone`
+1. `git clone` `npm i`
 2. 浏览器登录 `pixiv.net`, 控制台输入 `document.cookie` 获取 `cookie`
 3. 编辑 `config.js`
 4. `npm start`
