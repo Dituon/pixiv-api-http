@@ -40,8 +40,9 @@ export default {
 
         // your cookie here (use `document.cookie` to get cookie in `www.pixiv.net` console)
         // 你的 Cookie (在 `www.pixiv.net` 控制台使用 `document.cookie` 获取)
-        cookie: ''
+        cookie: '',
 
+        premium: true
     }, 
 
     server: {

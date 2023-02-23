@@ -27,8 +27,9 @@ export default async function pixivFetch(option) {
 }
 
 /**
- * www.pixiv.net + $path
+ * www.pixiv.net + $path + ?$query
  * @param {string} path
+ * @param {object} [query]
  * @return { Promise<object> }
  */
 export async function pixivJsonFetch(path, query) {

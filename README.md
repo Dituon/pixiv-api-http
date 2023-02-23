@@ -27,7 +27,7 @@
 ## Tips
 
 - 部分功能设置`cookie`后可用
-- 部分功能需要Pixiv会员账户
+- 部分功能需要Pixiv会员账户, 非会员搜索优化请参考 [工作方式](./HowToWork.md)
 - 设置 `Headers: Referer` 为 `https://www.pixiv.net/` 即可直接访问图片
 
 ## TODO
