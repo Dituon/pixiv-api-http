@@ -1,4 +1,4 @@
-import { pixivJsonFetch, replaceOrigin } from "../../../pixiv-fetch/index.js";
+import { pixivJsonFetch, replaceURL } from "../../../pixiv-fetch/index.js";
 /** @typedef {import('../../../../config.js').Lang} Lang */
 /** @typedef {import('../illust/pid.js').AuthorDTO} AuthorDTO */
 /** @typedef {import('./pid.js').NovelInfoDTO} NovelInfoDTO */
@@ -22,7 +22,7 @@ export async function getPidNovelSeriesInfo(id) {
         description: series.caption,
         tags: series.tags,
         lang: series.language,
-        cover: replaceOrigin(series.cover.urls.original),
+        cover: replaceURL(series.cover.urls.original),
         restrict: series.xRestrict == 0 ? 'safe' : 'r18',
 
         concluded: series.isConcluded,

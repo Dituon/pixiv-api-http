@@ -1,4 +1,4 @@
-import {pixivJsonFetch} from '../../../pixiv-fetch/index.js'
+import {pixivJsonFetch, replaceURL} from '../../../pixiv-fetch/index.js'
 import config from '../../../../config.js'
 import {fixParam} from "./no-premium.js";
 /** @typedef {import('../../../../config.js').Lang} Lang */
@@ -168,7 +168,7 @@ export async function search(path, dataName, param) {
         results.push({
             id: parseInt(single.id),
             title: single.title,
-            cover: single.url,
+            cover: replaceURL(single.url),
             tags: single.tags,
             createTime: new Date(single.createDate).getTime(),
             updateTime: new Date(single.updateDate).getTime(),

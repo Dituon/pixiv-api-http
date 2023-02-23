@@ -21,6 +21,9 @@ export default {
         // replace img url to original ip, improve access speed
         // 替换图片链接为原始IP, 可在墙内通过原始IP获取图片
         useOriginIP: true,
+        // replace img url to local proxy
+        // 替换图片链接为本机代理
+        useLocalProxy: true,
         imageHost: [ // i.pximg.net, direct connection by ip available
             '210.140.92.141',
             '210.140.92.149',
@@ -46,8 +49,8 @@ export default {
     }, 
 
     server: {
-        port: 1145,
-        
+        host: '127.0.0.1',
+        port: 1145
     }
 }
 

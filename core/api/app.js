@@ -1,11 +1,13 @@
 import express from 'express'
 import bodyParser from 'body-parser'
+import proxy from 'express-http-proxy'
 
 import config from '../../config.js'
 
-import { getPidIllust, getPidImage, getPidImageList, getPidManga } from './module/illust/index.js'
-import { getPidNovelSeries, getPidNovelSeriesContent, getPidNovelSeriesInfo, getPidNovel } from './module/novel/index.js'
-import { searchFormat } from './module/search/search.js'
+import {getPidIllust, getPidImage, getPidImageList, getPidManga} from './module/illust/index.js'
+import {getPidNovelSeries, getPidNovelSeriesContent, getPidNovelSeriesInfo, getPidNovel} from './module/novel/index.js'
+import {searchFormat} from './module/search/search.js'
+import {imageServerHost, rawHost, rawURL} from "../pixiv-fetch/replace-url.js";
 
 /**
  * @param {Function} asyncFun
@@ -26,7 +28,7 @@ export const callbackFactory = (asyncFun, ...params) => async (req, res, next) =
 
 export const app = express()
 app.use(bodyParser.json())
-app.listen(config.server.port)
+app.listen(config.server.port, config.server.host)
 
 // illust
 app.get('/illust/:id', callbackFactory(getPidIllust, 'id'))
@@ -48,3 +50,16 @@ app.post('/search', async (req, res, next) => {
     res.json(data)
     next()
 })
+
+// proxy
+if (config.proxy.useLocalProxy) app.use(
+    '/proxy',
+    proxy(config.proxy.useOriginIP ? imageServerHost : rawHost,
+        {
+            proxyReqOptDecorator: opts => {
+                opts.headers['Referer'] = 'https://www.pixiv.net/'
+                return opts
+            },
+            https: !config.proxy.useOriginIP
+        })
+)

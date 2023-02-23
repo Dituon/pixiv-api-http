@@ -4,5 +4,5 @@ export {
 } from './fetch.js'
 
 export {
-    default as replaceOrigin
-} from './replace-origin.js'
+    default as replaceURL
+} from './replace-url.js'

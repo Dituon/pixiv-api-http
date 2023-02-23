@@ -1,4 +1,4 @@
-import { pixivJsonFetch, replaceOrigin } from "../../../pixiv-fetch/index.js";
+import { pixivJsonFetch, replaceURL } from "../../../pixiv-fetch/index.js";
 /** @typedef {import('../../../../config.js').Lang} Lang */
 
 /** 
@@ -39,7 +39,7 @@ export async function getPidNovel(id) {
         likeCount: parseInt(details.rating_count),
         viewCount: parseInt(details.rating_view),
 
-        cover: replaceOrigin(details.url),
+        cover: replaceURL(details.url),
         series: !series ? null : {
             id: parseInt(series.id),
             title: series.title,
