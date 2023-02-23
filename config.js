@@ -19,10 +19,10 @@ export default {
         ],
 
         // replace img url to original ip, improve access speed
-        // 替换图片链接为原始IP, 可在墙内通过原始IP获取图片
+        // 替换图片链接为原始IP, 可在墙内通过原始IP获取图片, 使用http连接加快访问速度
         useOriginIP: true,
         // replace img url to local proxy
-        // 替换图片链接为本机代理
+        // 启动图片代理服务器 (host/proxy), 替换图片链接为本机代理
         useLocalProxy: true,
         imageHost: [ // i.pximg.net, direct connection by ip available
             '210.140.92.141',

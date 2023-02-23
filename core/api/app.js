@@ -7,7 +7,7 @@ import config from '../../config.js'
 import {getPidIllust, getPidImage, getPidImageList, getPidManga} from './module/illust/index.js'
 import {getPidNovelSeries, getPidNovelSeriesContent, getPidNovelSeriesInfo, getPidNovel} from './module/novel/index.js'
 import {searchFormat} from './module/search/search.js'
-import {imageServerHost, rawHost, rawURL} from "../pixiv-fetch/replace-url.js";
+import {imageServerHost, rawHost} from "../pixiv-fetch/replace-url.js";
 
 /**
  * @param {Function} asyncFun

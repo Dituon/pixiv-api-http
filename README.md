@@ -4,7 +4,7 @@
 
 施工中, 此API旨在为pixiv开发者提供终极解决方案
 
-可选: 
+可选:
 
 - 绕过政府防火墙SNI封锁
 - 使用图床原始IP地址
@@ -15,6 +15,56 @@
 - [Manga](core/api/module/manga/README.md)
 - [Novel](./core/api/module/novel/README.md)
 - [Search](./core/api/module/search/README.md)
+
+## Config
+
+配置文件 `config.js`
+
+### `proxy`
+
+代理设置
+
+**应用服务器 (`www.pixiv.net` `*.pixiv.net`)**
+
+- `bypassSNI` (boolean): 绕过防火墙的SNI封锁 (如天朝, 韩国, 伊朗等)
+- `serverHost` (IP[]): 服务器原始IP, 用于绕过DNS欺骗
+
+**图片服务器 (`i.pximg.net`)**
+
+- `useOriginIP` (boolean): 替换图片链接为图床原始IP, 可在墙内通过原始IP获取图片, 使用http连接加快访问速度
+- `useLocalProxy` (boolean): 启动代理服务器, 替换图片链接为本机代理, 免去Referer设置
+- `imageHost` (IP[]): 图片服务器原始IP, 用于绕过DNS欺骗
+
+| **`useOriginIP`** | **`useLocalProxy`** | **行为**                                  |
+|-------------------|---------------------|-----------------------------------------|
+| `false`           | `false`             | 返回原始链接                                  |
+| `true`            | `false`             | 替换图片链接为原始IP                             |
+| `false`           | `true`              | 替换图片链接为本机代理, 启动代理服务器, 代理使用`HTTPS`访问图床域名 |
+| `true`            | `true`              | 替换图片链接为本机代理, 启动代理服务器, 代理使用`HTTP`访问图床IP  |
+
+### `pixiv`
+
+Pixiv设置
+
+- `lang` (Lang): 语言设置, 用于小说搜索, API报错等
+
+| `lang`  | 语言      |
+|---------|---------|
+| `ja`    | 日本語     |
+| `en`    | English |
+| `zh-cn` | 简体中文    |
+| `zh-tw` | 繁體中文    |
+
+- `cookie` (string): 你的 Cookie (在 `www.pixiv.net`登录后 控制台使用 `document.cookie` 获取)
+
+- `premium` (boolean): 拥有pixiv会员, 填入`false`启用非会员搜索优化, 参考 [工作方式](./HowToWork.md)
+
+### `server`
+
+API服务器设置
+
+- `port` (number): 端口
+- `host` (string): IP / 域名
 
 ## Deploy
 
