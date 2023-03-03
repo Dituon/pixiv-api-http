@@ -78,10 +78,10 @@
 
 ```
 {
-    word: "東方Project",
-    type: "illust",
-    template: "default",
-    length: 20
+    "word": "東方Project",
+    "type": "illust",
+    "template": "default",
+    "length": 20
 }
 ```
 
@@ -96,24 +96,31 @@
 {
     "results": [
         {
-            "id": 105495972,
-            "title": "宵闇の従者",
+            "id": 105680390,
+            "title": "天衣無縫",
             "cover": "...",
             "tags": [
-                "十六夜咲夜",
                 "東方",
-                "東方Project"
+                "東方緋想天",
+                ...
             ],
-            "cerateTime": 1676718359000,
-            "updateTime": 1676718359000,
+            "createTime": 1677250811000,
+            "updateTime": 1677250811000,
+            "restrict": 'safe',
+            "total": 1,
             "author": {
-                "name": "彩川賢治",
-                "id": 15683392
+                "name": "久蒼穹",
+                "id": 66038798
             }
-        },
+        }
+    ],
+    "relatedTags": [
+        "東方Project",
+        "東方Project3000users入り",
+        "博麗霊夢",
         ...
     ],
-    "total": 1918834
+    "total": 19590
 }
 ```
 

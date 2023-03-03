@@ -11,6 +11,8 @@ import {fixParam} from "./no-premium.js";
  * @property {string[]} tags
  * @property {number} createTime
  * @property {number} updateTime
+ * @property {Restrict} restrict
+ * @property {number} total
  * @property {AuthorDTO} author
  */
 
@@ -59,6 +61,7 @@ import {fixParam} from "./no-premium.js";
 /**
  * @typedef {object} SearchResultDTO
  * @property {ResultPreviewDTO[]} results
+ * @property {string[]} relatedTags
  * @property {number} total
  */
 
@@ -144,10 +147,12 @@ export async function searchFormat(param) {
     }
     const res = (await Promise.all(promiseArr)).reduce((result, pageData) => {
         result.results.push(...pageData.results)
+        result.relatedTags = pageData.relatedTags
         result.total = pageData.total
         return result
     }, {
         results: [],
+        relatedTags: [],
         total: 0
     })
     res.results = res.results.slice(param.start, end)
@@ -172,6 +177,8 @@ export async function search(path, dataName, param) {
             tags: single.tags,
             createTime: new Date(single.createDate).getTime(),
             updateTime: new Date(single.updateDate).getTime(),
+            restrict: single.xRestrict == 0 ? 'safe' : 'r18',
+            total: single.pageCount,
             author: {
                 name: single.userName,
                 id: parseInt(single.userId)
@@ -180,6 +187,7 @@ export async function search(path, dataName, param) {
     }
     return {
         results,
+        relatedTags: data.relatedTags,
         total: data[dataName].total
     }
 }
