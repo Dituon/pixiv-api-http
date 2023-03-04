@@ -29,3 +29,7 @@
  * @typedef {'all'|'safe'|'r18'} Restrict 
  * @typedef { {name: string, id: number} } AuthorDTO
  */
+
+/**
+ * @typedef {ResultPreviewDTO} BaseRecommendDTO
+ */

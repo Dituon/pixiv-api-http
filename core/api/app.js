@@ -8,47 +8,52 @@ import {getPidIllust, getPidImage, getPidImageList, getPidManga} from './module/
 import {getPidNovelSeries, getPidNovelSeriesContent, getPidNovelSeriesInfo, getPidNovel} from './module/novel/index.js'
 import {searchFormat} from './module/search/search.js'
 import {imageServerHost, rawHost} from "../pixiv-fetch/replace-url.js";
-
-/**
- * @param {Function} asyncFun
- * @param  {...string} params
- * @return {Function}
- */
-export const callbackFactory = (asyncFun, ...params) => async (req, res, next) => {
-    try {
-        const data = await asyncFun(...params.map(p => req.params[p]))
-        res.json(data)
-    } catch (e) {
-        console.warn(e)
-        res.status(400).send(e)
-    }
-    next()
-}
-
+import {getPidRecommend, getPidRecommendIds} from "./module/illust/recommend.js";
 
 export const app = express()
 app.use(bodyParser.json())
 app.listen(config.server.port, config.server.host)
 
 // illust
-app.get('/illust/:id', callbackFactory(getPidIllust, 'id'))
-app.get('/illust/:id/images', callbackFactory(getPidImageList, 'id'))
-app.get('/illust/:id/images/:page', callbackFactory(getPidImage, 'id', 'page'))
+app.get('/illust/:id', async (req, res) => {
+    res.json(await getPidIllust(req.params.id))
+})
+app.get('/illust/:id/images', async (req, res) => {
+    res.json(await getPidImageList(req.params.id))
+})
+app.get('/illust/:id/images/:page', async (req, res) => {
+    res.json(await getPidImage(req.params.id, req.params.page))
+})
+app.get('/illust/:id/recommend', async (req, res) => {
+    res.json(await getPidRecommend(req.params.id, req.query.size))
+})
+app.get('/illust/:id/recommend/ids', async (req, res) => {
+    res.json(await getPidRecommendIds(req.params.id, req.query.size))
+})
+
 
 // manga
-app.get('/manga/:id', callbackFactory(getPidManga, 'id'))
+app.get('/manga/:id', async (req, res) => {
+    res.json(await getPidManga(req.params.id))
+})
 
 // novel
-app.get('/novel/:id', callbackFactory(getPidNovel, 'id'))
-app.get('/novel/series/:id', callbackFactory(getPidNovelSeries, 'id'))
-app.get('/novel/series/:id/info', callbackFactory(getPidNovelSeriesInfo, 'id'))
-app.get('/novel/series/:id/content', callbackFactory(getPidNovelSeriesContent, 'id'))
+app.get('/novel/:id', async (req, res) => {
+    res.json(await getPidNovel(req.params.id))
+})
+app.get('/novel/series/:id', async (req, res) => {
+    res.json(await getPidNovelSeries(req.params.id))
+})
+app.get('/novel/series/:id/info', async (req, res) => {
+    res.json(await getPidNovelSeriesInfo(req.params.id))
+})
+app.get('/novel/series/:id/content', async (req, res) => {
+    res.json(await getPidNovelSeriesContent(req.params.id))
+})
 
 // search
-app.post('/search', async (req, res, next) => {
-    const data = await searchFormat(req.body)
-    res.json(data)
-    next()
+app.post('/search', async (req, res) => {
+    res.json(await searchFormat(req.body))
 })
 
 // proxy
@@ -63,3 +68,8 @@ if (config.proxy.useLocalProxy) app.use(
             https: !config.proxy.useOriginIP
         })
 )
+
+app.use((err, req, res, next) => {
+    console.warn(err.stack)
+    res.status(400).send(err.message)
+})
