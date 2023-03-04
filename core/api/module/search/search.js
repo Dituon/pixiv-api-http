@@ -177,7 +177,7 @@ export async function search(path, dataName, param) {
             tags: single.tags,
             createTime: new Date(single.createDate).getTime(),
             updateTime: new Date(single.updateDate).getTime(),
-            restrict: single.xRestrict == 0 ? 'safe' : 'r18',
+            restrict: single.xRestrict === 0 ? 'safe' : 'r18',
             total: single.pageCount,
             author: {
                 name: single.userName,
