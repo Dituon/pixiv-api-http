@@ -17,10 +17,10 @@
 
 ## API
 
-- [Illust](./core/api/module/illust/README.md)
-- [Manga](core/api/module/manga/README.md)
-- [Novel](./core/api/module/novel/README.md)
-- [Search](./core/api/module/search/README.md)
+- **[Illust](./core/api/module/illust/README.md)**
+- **[Manga](core/api/module/manga/README.md)**
+- **[Novel](./core/api/module/novel/README.md)**
+- **[Search](./core/api/module/search/README.md)**
 
 ## Config
 
