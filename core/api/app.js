@@ -9,51 +9,62 @@ import {getPidNovelSeries, getPidNovelSeriesContent, getPidNovelSeriesInfo, getP
 import {searchFormat} from './module/search/search.js'
 import {imageServerHost, rawHost} from "../pixiv-fetch/replace-url.js";
 import {getPidRecommend, getPidRecommendIds} from "./module/illust/recommend.js";
+import {getFollowUpdateFormat} from "./module/follow/follow.js";
 
 export const app = express()
 app.use(bodyParser.json())
+app.use((req, res, next) => {
+    req.body = {...req.query, ...req.body}
+    next()
+})
 app.listen(config.server.port, config.server.host)
 
 // illust
-app.get('/illust/:id', async (req, res) => {
+app.all('/illust/:id', async (req, res) => {
     res.json(await getPidIllust(req.params.id))
 })
-app.get('/illust/:id/images', async (req, res) => {
+app.all('/illust/:id/images', async (req, res) => {
     res.json(await getPidImageList(req.params.id))
 })
-app.get('/illust/:id/images/:page', async (req, res) => {
+app.all('/illust/:id/images/:page', async (req, res) => {
     res.json(await getPidImage(req.params.id, req.params.page))
 })
-app.get('/illust/:id/recommend', async (req, res) => {
-    res.json(await getPidRecommend(req.params.id, req.query.size))
+app.all('/illust/:id/recommend', async (req, res) => {
+    res.json(await getPidRecommend(req.params.id, req.body.size))
 })
-app.get('/illust/:id/recommend/ids', async (req, res) => {
-    res.json(await getPidRecommendIds(req.params.id, req.query.size))
+
+app.all('/illust/:id/recommend/ids', async (req, res) => {
+    res.json(await getPidRecommendIds(req.params.id, req.body.size))
 })
 
 
 // manga
-app.get('/manga/:id', async (req, res) => {
+app.all('/manga/:id', async (req, res) => {
     res.json(await getPidManga(req.params.id))
 })
 
 // novel
-app.get('/novel/:id', async (req, res) => {
+app.all('/novel/:id', async (req, res) => {
     res.json(await getPidNovel(req.params.id))
 })
-app.get('/novel/series/:id', async (req, res) => {
+app.all('/novel/series/:id', async (req, res) => {
     res.json(await getPidNovelSeries(req.params.id))
 })
-app.get('/novel/series/:id/info', async (req, res) => {
+app.all('/novel/series/:id/info', async (req, res) => {
     res.json(await getPidNovelSeriesInfo(req.params.id))
 })
-app.get('/novel/series/:id/content', async (req, res) => {
+app.all('/novel/series/:id/content', async (req, res) => {
     res.json(await getPidNovelSeriesContent(req.params.id))
 })
 
 // search
-app.post('/search', async (req, res) => {
+app.all('/search', async (req, res) => {
     res.json(await searchFormat(req.body))
+})
+
+// follow
+app.all('/follow', async (req, res) => {
+    res.json(await getFollowUpdateFormat(req.body))
 })
 
 // proxy

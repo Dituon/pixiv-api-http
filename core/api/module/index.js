@@ -1,4 +1,6 @@
-/** 
+/** @typedef {import('../../../../config.js').Lang} Lang */
+
+/**
  * @typedef {object} BaseItemInfoDTO
  * 
  * @property {number} id
@@ -31,5 +33,20 @@
  */
 
 /**
+ * @typedef {object} ResultPreviewDTO
+ * @property {number} id
+ * @property {string} title
+ * @property {string} cover
+ * @property {string[]} tags
+ * @property {number} createTime
+ * @property {number} updateTime
+ * @property {Restrict} restrict
+ * @property {number} total
+ * @property {AuthorDTO} author
+ */
+
+/**
  * @typedef {ResultPreviewDTO} BaseRecommendDTO
  */
+
+/** @typedef {'artwork'|'illust'|'gif'|'illust_and_gif'|'manga'|'novel'} WorkType */

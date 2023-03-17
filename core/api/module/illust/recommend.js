@@ -19,7 +19,7 @@ export async function getPidRecommend(id, size = 20) {
         const single = data.illusts[i]
         if (!single.id) continue
         list.push({
-            id: parseInt(single.id),
+            id: +(single.id),
             title: single.title,
             type: single.type,
             tags: single.tags,
@@ -29,7 +29,7 @@ export async function getPidRecommend(id, size = 20) {
             updateTime: new Date(single.updateDate).getTime(),
             total: single.pageCount,
             author: {
-                id: parseInt(single.userId),
+                id: +(single.userId),
                 name: single.userName
             }
         })
@@ -39,5 +39,5 @@ export async function getPidRecommend(id, size = 20) {
 
 export async function getPidRecommendIds(id, size = 20) {
     const data = await pixivJsonFetch(`/ajax/illust/${id}/recommend/init?limit=${size}`)
-    return data.nextIds.slice(0, size).map(i => parseInt(i))
+    return data.nextIds.slice(0, size).map(i => +(i))
 }

@@ -17,7 +17,7 @@ import { pixivJsonFetch, replaceURL } from "../../../pixiv-fetch/index.js";
 export async function getPidNovelSeriesInfo(id) {
     const series = await pixivJsonFetch('/ajax/novel/series/' + id)
     return {
-        id: parseInt(id),
+        id: +(id),
         title: series.title,
         description: series.caption,
         tags: series.tags,
@@ -35,7 +35,7 @@ export async function getPidNovelSeriesInfo(id) {
 
         author: {
             name: series.userName,
-            id: parseInt(series.userId)
+            id: +(series.userId)
         }
     }
 }
@@ -52,7 +52,7 @@ export async function getPidNovelSeriesContent(id) {
     const resultArr = []
     for (const singleNovel of thumbnails.novel) {
         resultArr.push({
-            id: parseInt(singleNovel.id),
+            id: +(singleNovel.id),
             title: singleNovel.title,
             description: singleNovel.description,
             tags: singleNovel.tags,
@@ -65,7 +65,7 @@ export async function getPidNovelSeriesContent(id) {
             bookmarkCount: singleNovel.bookmarkCount,
             author: {
                 name: singleNovel.userName,
-                id: parseInt(singleNovel.userId)
+                id: +(singleNovel.userId)
             }
         })
     }

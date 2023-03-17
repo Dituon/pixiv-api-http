@@ -21,6 +21,9 @@
 - **[Manga](core/api/module/manga/README.md)**
 - **[Novel](./core/api/module/novel/README.md)**
 - **[Search](./core/api/module/search/README.md)**
+- **[Follow](core/api/module/follow/README.md)**
+
+*(可混用 `POST` `GET` 请求)*
 
 ## Config
 

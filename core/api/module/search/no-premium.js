@@ -35,7 +35,7 @@ export async function fixParam(param, typeInfo) {
 //     const results = []
 //     for (const single of data[typeInfo.name].data) {
 //         results.push({
-//             id: parseInt(single.id),
+//             id: +(single.id),
 //             title: single.title,
 //             cover: single.url,
 //             tags: single.tags,
@@ -43,7 +43,7 @@ export async function fixParam(param, typeInfo) {
 //             updateTime: new Date(single.updateDate).getTime(),
 //             author: {
 //                 name: single.userName,
-//                 id: parseInt(single.userId)
+//                 id: +(single.userId)
 //             }
 //         })
 //     }

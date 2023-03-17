@@ -1,69 +1,6 @@
 import {pixivJsonFetch, replaceURL} from '../../../pixiv-fetch/index.js'
 import config from '../../../../config.js'
 import {fixParam} from "./no-premium.js";
-/** @typedef {import('../../../../config.js').Lang} Lang */
-
-/**
- * @typedef {object} ResultPreviewDTO
- * @property {number} id
- * @property {string} title
- * @property {string} cover
- * @property {string[]} tags
- * @property {number} createTime
- * @property {number} updateTime
- * @property {Restrict} restrict
- * @property {number} total
- * @property {AuthorDTO} author
- */
-
-/** @typedef {'date'|'popular'} SearchOrder */
-/** @typedef {'date_d'|'popular_male_d'} RawSearchOrder */
-
-/** @typedef {'tag'|'full'|'content'} SearchMode */
-/** @typedef {'s_tag'|'s_tag_full'|'s_tc'} RawSearchMode */
-
-/** @typedef {'artwork'|'illust'|'gif'|'illust_and_gif'|'manga'|'novel'} SearchType */
-/** @typedef {'all'|'illust'|'ugoira'|'illust_and_ugoira'|'manga'} RawSearchType */
-
-/** @typedef {'top'|'default'|'enhance'} TemplateType */
-
-/** @typedef {Object<SearchType, SearchTypeInfo>} SearchTypeInfoMap */
-/** @typedef {{path: SearchPath, type: RawSearchType | '', name: string}} SearchTypeInfo */
-/** @typedef {'illustrations'|'artworks'|'manga'|'novels'} SearchPath */
-
-/**
- * @typedef {object} SearchParam
- * @property {string} word
- * @property {TemplateType} [template]
- * @property {SearchOrder} [order]
- * @property {number} [blt=0]
- * @property {SearchMode|RawSearchMode} [mode]
- * @property {SearchType|RawSearchType} [type]
- * @property {Restrict} [restrict='safe']
- * @property {number} [start=0]
- * @property {number} [length=60]
- * @property {number} [p=1]
- * @property {Lang} [lang]
- */
-
-/**
- * @typedef {object} RawSearchParam
- * @property {string} word
- * @property {RawSearchOrder} order
- * @property {number} blt
- * @property {RawSearchMode} s_mode
- * @property {RawSearchType} type
- * @property {Restrict} mode
- * @property {number} p
- * @property {Lang} lang
- */
-
-/**
- * @typedef {object} SearchResultDTO
- * @property {ResultPreviewDTO[]} results
- * @property {string[]} relatedTags
- * @property {number} total
- */
 
 /** @private @readonly */
 const PAGE_SIZE = 60
@@ -137,6 +74,8 @@ export async function searchFormat(param) {
         return search(path, inf.name, param)
     }
 
+    param.start = +param.start
+    param.length = +param.length
     let end = param.start + param.length
     let e = Math.ceil(end / PAGE_SIZE)
     let s = Math.ceil(param.start / PAGE_SIZE)
@@ -171,7 +110,7 @@ export async function search(path, dataName, param) {
     const results = []
     for (const single of data[dataName].data) {
         results.push({
-            id: parseInt(single.id),
+            id: +(single.id),
             title: single.title,
             cover: replaceURL(single.url),
             tags: single.tags,
@@ -181,7 +120,7 @@ export async function search(path, dataName, param) {
             total: single.pageCount,
             author: {
                 name: single.userName,
-                id: parseInt(single.userId)
+                id: +(single.userId)
             }
         })
     }

@@ -20,9 +20,9 @@ export async function getPidManga(id) {
     return {
         ...getBaseIllustDTO(illust.illust_details),
         series: !series ? null : {
-            id: parseInt(series.id),
+            id: +(series.id),
             title: series.title,
-            order: parseInt(series.content_order),
+            order: +(series.content_order),
             prev: !series.prev_illust ? null : {
                 id: series.prev_illust.illust_id,
                 title: series.prev_illust.illust_title

@@ -55,7 +55,7 @@ export async function getPidImage(id, page) {
 /** @return {IllustDTO} */
 export function getBaseIllustDTO(details) {
     const authorDetails = details.author_details
-    const pages = parseInt(details.page_count)
+    const pages = +(details.page_count)
     /** @type { ImageDTO[] } */
     const images = []
     if (pages === 1) {
@@ -65,8 +65,8 @@ export function getBaseIllustDTO(details) {
                 regular: replaceURL(details.url),
                 original: replaceURL(details.url_big)
             },
-            width: parseInt(details.illust_images[0].illust_image_width),
-            height: parseInt(details.illust_images[0].illust_image_height)
+            width: +(details.illust_images[0].illust_image_width),
+            height: +(details.illust_images[0].illust_image_height)
         })
     } else {
         for (let i = 0; i < pages; i++) {
@@ -81,13 +81,13 @@ export function getBaseIllustDTO(details) {
                     regular: replaceURL(o.url),
                     original: replaceURL(o.url_big)
                 },
-                width: parseInt(width),
-                height: parseInt(height)
+                width: +(width),
+                height: +(height)
             })
         }
     }
     return {
-        id: parseInt(details.id),
+        id: +(details.id),
         title: details.title,
         total: pages,
         images,
@@ -97,11 +97,11 @@ export function getBaseIllustDTO(details) {
         restrict: details.x_restrict == 0 ? 'safe' : 'r18',
         description: details.comment,
         bookmarkCount: details.bookmark_user_total,
-        likeCount: parseInt(details.rating_count),
-        viewCount: parseInt(details.rating_view),
+        likeCount: +(details.rating_count),
+        viewCount: +(details.rating_view),
         author: {
             name: authorDetails.user_name,
-            id: parseInt(authorDetails.user_id)
+            id: +(authorDetails.user_id)
         }
     }
 }
