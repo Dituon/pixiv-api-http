@@ -27,7 +27,7 @@ const defaultParam = {
 
 /**
  * @param {FollowUpdateParam} param
- * @return {ResultPreviewDTO}
+ * @return {Promise<ResultPreviewDTO[]>}
  */
 export async function getFollowUpdateFormat(param) {
     param.mode = param.restrict ?? 'safe'
@@ -50,7 +50,8 @@ export async function getFollowUpdateFormat(param) {
 }
 
 /**
- * @return {ResultPreviewDTO}
+ * @param {FollowUpdateParam} param
+ * @return {Promise<ResultPreviewDTO[]>}
  */
 export async function getFollowUpdate(param) {
     const type = param.type

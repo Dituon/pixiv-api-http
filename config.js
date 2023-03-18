@@ -1,4 +1,4 @@
-export default {
+const config = {
     // Proxy setting
     // 代理设置
     proxy: {
@@ -38,6 +38,7 @@ export default {
     },
     
     pixiv: {
+        /** @typedef {'ja'|'en'|'zh'|'zh-cn'|'zh-tw'} Lang */
         /** @type {Lang} */
         lang: 'zh',
 
@@ -45,13 +46,35 @@ export default {
         // 你的 Cookie (在 `www.pixiv.net` 控制台使用 `document.cookie` 获取)
         cookie: '',
 
-        premium: true
+        premium: true,
+
+        followUpdate: {
+            // If undefined, the cookie will determine if it is enabled or not.
+            // 如果为undefined, 则根据cookie判断是否启用
+            enable: undefined,
+            interval: 300 * 1000
+        },
+
+        cachePath: './cache/'
     }, 
 
-    server: {
+    httpServer: {
         host: '127.0.0.1',
         port: 1145
+    },
+
+    websocketServer: {
+        host: undefined,
+        port: 4514
     }
 }
 
-/** @typedef {'ja'|'en'|'zh'|'zh-cn'|'zh-tw'} Lang */
+if (config.pixiv.followUpdate.enable === undefined) {
+    config.pixiv.followUpdate.enable = !!config.pixiv.cookie
+}
+
+if (config.websocketServer.host === undefined) {
+    config.websocketServer.host = config.httpServer.host
+}
+
+export default config

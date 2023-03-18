@@ -67,3 +67,44 @@
 
 ---
 </details>
+
+<details>
+<summary>
+<b><code>WebSocket</code></b><b><code>/follow-update</code></b>
+</summary>
+<br/>
+
+### 获取更新推送
+
+每**5分钟**从Pixiv服务器请求一次数据, 如果有已关注用户的最新作品更新, 则推送 `ResultPreviewDTO[]`
+
+示例: `ws://127.0.0.1:4514/follow-update`
+
+推送: `ResultPreviewDTO[]`
+
+```
+[
+    {
+        "id": 105680390,
+        "title": "天衣無縫",
+        "cover": "...",
+        "tags": [
+            "東方",
+            "東方緋想天",
+            ...
+        ],
+        "createTime": 1677250811000,
+        "updateTime": 1677250811000,
+        "restrict": 'safe',
+        "total": 1,
+        "author": {
+            "name": "久蒼穹",
+            "id": 66038798
+        }
+    },
+    ...
+]
+```
+
+---
+</details>

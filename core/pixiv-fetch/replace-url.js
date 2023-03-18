@@ -7,7 +7,7 @@ export const rawURL = 'https://' + rawHost
 const useOriginIP = config.proxy.useOriginIP
 const useLocalProxy = config.proxy.useLocalProxy
 
-export const localProxyURL = `http://${config.server.host}:${config.server.port}/proxy`
+export const localProxyURL = `http://${config.httpServer.host}:${config.httpServer.port}/proxy`
 export let imageServerOriginURL = 'http://' + config.proxy.imageHost[0]
 export let imageServerHost = config.proxy.imageHost[0]
 

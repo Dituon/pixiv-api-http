@@ -8,6 +8,8 @@
 
 **[工作原理](HowToWork.md)**
 
+支持 `GET` `POST` `WebSocket` 协议
+
 可选:
 
 - 绕过政府防火墙封锁
@@ -68,9 +70,16 @@ Pixiv设置
 
 - `premium` (boolean): 拥有pixiv会员, 填入`false`启用非会员搜索优化, 参考 [工作方式](./HowToWork.md)
 
-### `server`
+### `httpServer`
 
-API服务器设置
+HTTP API 服务器设置
+
+- `port` (number): 端口
+- `host` (string): IP / 域名
+
+### `websocketServer`
+
+WebSocket API 服务器设置
 
 - `port` (number): 端口
 - `host` (string): IP / 域名

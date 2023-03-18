@@ -10,6 +10,7 @@ import {searchFormat} from './module/search/search.js'
 import {imageServerHost, rawHost} from "../pixiv-fetch/replace-url.js";
 import {getPidRecommend, getPidRecommendIds} from "./module/illust/recommend.js";
 import {getFollowUpdateFormat} from "./module/follow/follow.js";
+import {initFollowUpdatePush} from "./module/follow/update-push.js";
 
 export const app = express()
 app.use(bodyParser.json())
@@ -17,7 +18,7 @@ app.use((req, res, next) => {
     req.body = {...req.query, ...req.body}
     next()
 })
-app.listen(config.server.port, config.server.host)
+app.listen(config.httpServer.port, config.httpServer.host)
 
 // illust
 app.all('/illust/:id', async (req, res) => {
@@ -67,6 +68,10 @@ app.all('/follow', async (req, res) => {
     res.json(await getFollowUpdateFormat(req.body))
 })
 
+app.all('/follow/:type', async (req, res) => {
+    res.json(await getFollowUpdateFormat({type: req.params.type, ...req.body}))
+})
+
 // proxy
 if (config.proxy.useLocalProxy) app.use(
     '/proxy',
@@ -79,6 +84,9 @@ if (config.proxy.useLocalProxy) app.use(
             https: !config.proxy.useOriginIP
         })
 )
+
+// follow update
+if (config.pixiv.followUpdate.enable) initFollowUpdatePush()
 
 app.use((err, req, res, next) => {
     console.warn(err.stack)
