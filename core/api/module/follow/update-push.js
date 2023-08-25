@@ -37,6 +37,7 @@ export function initFollowUpdatePush() {
 
     /** @param {ResultPreviewDTO[]} data */
     const pushUpdate = data => {
+        if (!data || !data.length) return
         for (const client of wss.clients) {
             if (client.readyState !== WebSocket.OPEN) continue
             client.send(JSON.stringify(data))
