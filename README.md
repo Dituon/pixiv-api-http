@@ -1,5 +1,8 @@
 # pixiv-api-http
 
+> [!IMPORTANT]  
+> 请使用 `Node LTS` 版本 (例如 `18.20.0`), 经测试 `Node 20+` 存在LTS代理问题
+
 ## Intro
 
 此API旨在为 Pixiv 开发者提供终极解决方案
