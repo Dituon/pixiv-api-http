@@ -70,7 +70,7 @@ Pixiv设置
 | `zh-cn` | 简体中文    |
 | `zh-tw` | 繁體中文    |
 
-- `cookie` (string): 你的 Cookie (在 `www.pixiv.net`登录后 控制台使用 `document.cookie` 获取)
+- `cookie` (string): 你的 Cookie (参考 [Tips](#Tips))
 
 - `premium` (boolean): 拥有pixiv会员, 填入`false`启用非会员搜索优化, 参考 [工作方式](./HowToWork.md)
 
@@ -99,7 +99,7 @@ WebSocket API 服务器设置
 ## Tips
 
 - 部分功能设置`cookie`后可用
-- 使用浏览器插件 (例如 [cookieeditor (Edge)](https://microsoftedge.microsoft.com/addons/detail/cookieeditor/neaplmfkghagebokkhpjpoebhdledlfi) [cookie-editor (Chrome)](https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm) [cookie-editor (Firefox)](https://addons.mozilla.org/en-US/firefox/addon/cookie-editor/)) Export As `Header String` 获取 Cookie
+- 获取`cookie`: 登录 `pixiv.net` 后, 使用浏览器插件 (例如 [cookieeditor (Edge)](https://microsoftedge.microsoft.com/addons/detail/cookieeditor/neaplmfkghagebokkhpjpoebhdledlfi) / [cookie-editor (Chrome)](https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm) / [cookie-editor (Firefox)](https://addons.mozilla.org/en-US/firefox/addon/cookie-editor/)) Export As `Header String` 获取
 - 部分功能需要Pixiv会员账户, 非会员搜索优化请参考 [工作方式](./HowToWork.md)
 - 设置 `Headers: Referer` 为 `https://www.pixiv.net/` 即可直接访问图片
 
