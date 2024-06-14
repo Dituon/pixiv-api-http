@@ -42,8 +42,8 @@ const config = {
         /** @type {Lang} */
         lang: 'zh',
 
-        // your cookie here (use `document.cookie` to get cookie in `www.pixiv.net` console)
-        // 你的 Cookie (在 `www.pixiv.net` 控制台使用 `document.cookie` 获取)
+        // your cookie here (see README.md#Tips)
+        // 你的 Cookie (参考 README.md#Tips)
         cookie: '',
 
         premium: true,
