@@ -99,7 +99,7 @@ WebSocket API 服务器设置
 ## Tips
 
 - 部分功能设置`cookie`后可用
-- 获取`cookie`: 登录 `pixiv.net` 后, 使用浏览器插件 (例如 [cookieeditor (Edge)](https://microsoftedge.microsoft.com/addons/detail/cookieeditor/neaplmfkghagebokkhpjpoebhdledlfi) / [cookie-editor (Chrome)](https://chromewebstore.google.com/detail/cookie-editor/hlkenndednhfkekhgcdicdfddnkalmdm) / [cookie-editor (Firefox)](https://addons.mozilla.org/en-US/firefox/addon/cookie-editor/)) Export As `Header String` 获取
+- 获取`cookie`: 详见 **[#2](https://github.com/Dituon/pixiv-api-http/issues/2#issuecomment-2282201060)**
 - 部分功能需要Pixiv会员账户, 非会员搜索优化请参考 [工作方式](./HowToWork.md)
 - 设置 `Headers: Referer` 为 `https://www.pixiv.net/` 即可直接访问图片
 
